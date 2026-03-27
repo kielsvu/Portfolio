@@ -160,7 +160,6 @@ document.querySelectorAll(".mlink").forEach(function(a){
 ────────────────────────────────────────────────── */
 var curEl   = document.getElementById("cur");
 var curRing = document.getElementById("cur-ring");
-/* Start WAY off screen so ring never appears on hamburger before mouse moves */
 var mx = -999, my = -999;
 var rx = -999, ry = -999;
 var hasMouse = false;
@@ -168,24 +167,25 @@ var touchBlock = false;
 var dotR = 4, dotRTarget = 4;
 var ringR = 14, ringRTarget = 14;
 
+/* If this is a touch device, never activate the cursor at all */
+var isTouchDevice = window.matchMedia("(pointer:coarse)").matches;
+
 document.addEventListener("touchstart", function(){
   touchBlock = true;
   setTimeout(function(){ touchBlock = false; }, 800);
 }, {passive:true});
 
 document.addEventListener("mousemove", function(e){
-  if(touchBlock) return;
+  if(touchBlock || isTouchDevice) return;
   if(!hasMouse){
     hasMouse = true;
     document.body.classList.add("has-mouse");
-    /* Snap ring to mouse position on first move — no slide-in from corner */
     rx = e.clientX; ry = e.clientY;
   }
   mx = e.clientX; my = e.clientY;
   curEl.style.transform = "translate("+(mx-dotR)+"px,"+(my-dotR)+"px)";
 });
 
-/* rAF loop — ring trails + lerp sizes */
 (function animRing(){
   rx += (mx-rx)*0.12;
   ry += (my-ry)*0.12;
@@ -196,9 +196,8 @@ document.addEventListener("mousemove", function(e){
   requestAnimationFrame(animRing);
 })();
 
-/* btn hover — grow cursor on interactive elements */
 document.addEventListener("mouseover", function(e){
-  if(!hasMouse) return;
+  if(!hasMouse || isTouchDevice) return;
   var onBtn = !!(e.target.closest(".btn") || e.target.closest("button") || e.target.closest(".proj-card") || e.target.closest(".svc-card"));
   document.body.classList.toggle("cbtn", onBtn);
   dotRTarget  = onBtn ? 7  : 4;
@@ -350,14 +349,15 @@ document.querySelectorAll("[data-target]").forEach(function(el){ co.observe(el);
 })();
 
 /* ── NAV HIRE BTN — desktop only via JS ─────────
-   Show/hide purely in JS so it never affects
-   mobile layout even slightly
+   Hidden on touch devices and narrow viewports
 ──────────────────────────────────────────────── */
 (function(){
   var hireBtn = document.getElementById("nav-hire-btn");
   if(!hireBtn) return;
+  var isTouch = window.matchMedia("(pointer:coarse)").matches;
   function checkWidth(){
-    hireBtn.style.display = window.innerWidth > 900 ? "inline-flex" : "none";
+    var show = !isTouch && window.innerWidth > 1024;
+    hireBtn.style.display = show ? "inline-flex" : "none";
   }
   checkWidth();
   window.addEventListener("resize", checkWidth, {passive:true});
