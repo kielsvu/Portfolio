@@ -313,10 +313,24 @@ window.addEventListener("scroll", function(){
 },{passive:true});
 
 /* ── SCROLL REVEAL ───────────────────────────── */
+/* Use IntersectionObserver with rootMargin so elements trigger before fully in view */
 var ro = new IntersectionObserver(function(en){
-  en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("v"); ro.unobserve(e.target); }});
-},{threshold:.1});
+  en.forEach(function(e){
+    if(e.isIntersecting){
+      e.target.classList.add("v");
+      ro.unobserve(e.target);
+    }
+  });
+},{threshold:0, rootMargin:"0px 0px -20px 0px"});
+
 document.querySelectorAll(".r").forEach(function(el){ ro.observe(el); });
+
+/* Fallback: if any .r elements are still not visible after 800ms, force show them */
+setTimeout(function(){
+  document.querySelectorAll(".r:not(.v)").forEach(function(el){
+    el.classList.add("v");
+  });
+}, 800);
 
 /* ── COUNTER ANIMATION ───────────────────────── */
 var co = new IntersectionObserver(function(en){
