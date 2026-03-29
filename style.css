@@ -154,7 +154,7 @@ nav.open .ham span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 .mob-socials a:hover{border-color:var(--pp);background:rgba(180,150,240,.12);box-shadow:var(--gsm)}
 
 /* ── BUTTONS ───────────────────────────────────── */
-/* Shared transition on ALL button variants — this is what makes hover-out fade work */
+/* Shared transition on ALL button variants — ensures smooth fade in AND out */
 .btn,.btn-fill,.btn-icon,.btn-sm,
 button.btn,button.btn-fill,button.btn-icon,button.btn-sm{
   transition:
@@ -163,7 +163,7 @@ button.btn,button.btn-fill,button.btn-icon,button.btn-sm{
     background .45s ease,
     box-shadow .5s ease,
     opacity .35s ease,
-    transform .12s ease !important
+    transform .12s ease
 }
 .btn::before{
   content:'';position:absolute;inset:0;border-radius:inherit;
