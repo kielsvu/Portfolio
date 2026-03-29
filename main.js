@@ -166,8 +166,8 @@ var hasMouse = false;
 var touchBlock = false;
 var dotR = 4, dotRTarget = 4;
 var ringR = 14, ringRTarget = 14;
+var ringLoopStarted = false;
 
-/* If this is a touch device, never activate the cursor at all */
 var isTouchDevice = window.matchMedia("(pointer:coarse)").matches;
 
 document.addEventListener("touchstart", function(){
@@ -177,24 +177,27 @@ document.addEventListener("touchstart", function(){
 
 document.addEventListener("mousemove", function(e){
   if(touchBlock || isTouchDevice) return;
+  mx = e.clientX; my = e.clientY;
   if(!hasMouse){
     hasMouse = true;
+    rx = mx; ry = my; /* snap ring to exact mouse pos on first move */
     document.body.classList.add("has-mouse");
-    rx = e.clientX; ry = e.clientY;
+    /* Only start the rAF ring loop once a real mouse is confirmed */
+    if(!ringLoopStarted){
+      ringLoopStarted = true;
+      (function animRing(){
+        rx += (mx-rx)*0.12;
+        ry += (my-ry)*0.12;
+        dotR  += (dotRTarget  - dotR)  * 0.18;
+        ringR += (ringRTarget - ringR) * 0.18;
+        curEl.style.transform  = "translate("+(mx-dotR)+"px,"+(my-dotR)+"px)";
+        curRing.style.transform = "translate("+(rx-ringR)+"px,"+(ry-ringR)+"px)";
+        requestAnimationFrame(animRing);
+      })();
+    }
   }
-  mx = e.clientX; my = e.clientY;
   curEl.style.transform = "translate("+(mx-dotR)+"px,"+(my-dotR)+"px)";
 });
-
-(function animRing(){
-  rx += (mx-rx)*0.12;
-  ry += (my-ry)*0.12;
-  dotR  += (dotRTarget  - dotR)  * 0.18;
-  ringR += (ringRTarget - ringR) * 0.18;
-  curEl.style.transform  = "translate("+(mx-dotR)+"px,"+(my-dotR)+"px)";
-  curRing.style.transform = "translate("+(rx-ringR)+"px,"+(ry-ringR)+"px)";
-  requestAnimationFrame(animRing);
-})();
 
 document.addEventListener("mouseover", function(e){
   if(!hasMouse || isTouchDevice) return;
