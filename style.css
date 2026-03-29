@@ -228,11 +228,10 @@ section{padding:5rem 3.5rem}
 .sec-lbl{font-size:.62rem;letter-spacing:.24em;text-transform:uppercase;color:var(--pp3);margin-bottom:.6rem}
 .sec-title{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(1.5rem,4vw,2.6rem);letter-spacing:-.022em;color:#fff;margin-bottom:1.2rem;line-height:1.08;word-break:break-word}
 .divider{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--stroke),transparent)}
-/* Reveal — faster on mobile so content appears quickly */
-.r{opacity:0;transform:translateY(14px);transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1)}
-.r.v{opacity:1;transform:none}
-/* Safety: if JS blocked, still show content after CSS animation delay */
-@media(prefers-reduced-motion:reduce){.r{opacity:1;transform:none}}
+/* Reveal — content always visible, subtle slide-up animation only */
+.r{opacity:1;transform:translateY(12px);transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.r.v{transform:none}
+/* Stagger delays */
 .d1{transition-delay:.07s}.d2{transition-delay:.13s}.d3{transition-delay:.19s}.d4{transition-delay:.25s}.d5{transition-delay:.31s}
 
 /* ── HERO ──────────────────────────────────────── */
