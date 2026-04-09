@@ -3,16 +3,29 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
-<meta name="description" content="Kiel Torres — Lua/Roblox Exploit Dev, Web Developer & Discord Bot Dev"/>
-<title>Kiel Torres — Developer Portfolio</title>
+<meta name="description" content="Kiel Torres - Web Developer, Discord Bot Dev and Lua Scripter"/>
+<title>Kiel Torres | Developer Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
 <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
-<!-- Cursor dots (shown only when mouse is detected via JS) -->
+<!-- INTRO -->
+<div id="intro" style="background:#050507">
+  <canvas id="intro-canvas"></canvas>
+  <div class="intro-inner">
+    <div class="intro-sub-label">Developer Portfolio</div>
+    <div class="intro-title" id="intro-title"><span class="intro-cursor-blink"></span></div>
+    <div class="intro-tagline" id="intro-tagline">Web · Bots · Lua</div>
+    <div class="intro-bar-wrap">
+      <div class="intro-bar"><div class="intro-bar-fill" id="intro-fill"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Cursor — dot only -->
 <div id="cur"></div>
 <div id="cur-ring"></div>
 
@@ -23,24 +36,23 @@
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>
 </button>
 
-<!-- ═══ NAV ═══ -->
+<!-- NAV -->
 <nav id="mnav">
   <a href="#home" class="nav-logo">
-    <svg viewBox="0 0 26 26" fill="none">
+    <svg width="20" height="20" viewBox="0 0 26 26" fill="none">
       <circle cx="13" cy="13" r="2.6" fill="#c9b8f0"/>
-      <circle cx="3.5" cy="6"  r="1.6" fill="#8b6fd4" opacity=".85"/>
-      <circle cx="22.5" cy="6"  r="1.6" fill="#8b6fd4" opacity=".85"/>
+      <circle cx="3.5" cy="6" r="1.6" fill="#8b6fd4" opacity=".85"/>
+      <circle cx="22.5" cy="6" r="1.6" fill="#8b6fd4" opacity=".85"/>
       <circle cx="3.5" cy="20" r="1.6" fill="#8b6fd4" opacity=".85"/>
       <circle cx="22.5" cy="20" r="1.6" fill="#8b6fd4" opacity=".85"/>
-      <circle cx="13" cy="2"  r="1.3" fill="#b8a0e8" opacity=".6"/>
+      <circle cx="13" cy="2" r="1.3" fill="#b8a0e8" opacity=".6"/>
       <circle cx="13" cy="24" r="1.3" fill="#b8a0e8" opacity=".6"/>
-      <line x1="13" y1="13" x2="3.5"  y2="6"  stroke="#b8a0e8" stroke-width=".8" opacity=".38"/>
-      <line x1="13" y1="13" x2="22.5" y2="6"  stroke="#b8a0e8" stroke-width=".8" opacity=".38"/>
-      <line x1="13" y1="13" x2="3.5"  y2="20" stroke="#b8a0e8" stroke-width=".8" opacity=".38"/>
+      <line x1="13" y1="13" x2="3.5" y2="6" stroke="#b8a0e8" stroke-width=".8" opacity=".38"/>
+      <line x1="13" y1="13" x2="22.5" y2="6" stroke="#b8a0e8" stroke-width=".8" opacity=".38"/>
+      <line x1="13" y1="13" x2="3.5" y2="20" stroke="#b8a0e8" stroke-width=".8" opacity=".38"/>
       <line x1="13" y1="13" x2="22.5" y2="20" stroke="#b8a0e8" stroke-width=".8" opacity=".38"/>
-      <line x1="13" y1="13" x2="13"   y2="2"  stroke="#b8a0e8" stroke-width=".8" opacity=".22"/>
-      <line x1="13" y1="13" x2="13"   y2="24" stroke="#b8a0e8" stroke-width=".8" opacity=".22"/>
-      <circle cx="13" cy="13" r="5" stroke="#c9b8f0" stroke-width=".6" opacity=".16"/>
+      <line x1="13" y1="13" x2="13" y2="2" stroke="#b8a0e8" stroke-width=".8" opacity=".22"/>
+      <line x1="13" y1="13" x2="13" y2="24" stroke="#b8a0e8" stroke-width=".8" opacity=".22"/>
     </svg>
     KIEL.DEV
   </a>
@@ -48,37 +60,35 @@
     <li><a href="#home">Home</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#service">Service</a></li>
-    <li><a href="#project">Project</a></li>
-    <li><a href="#skill">Skill</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <a href="#contact" class="btn btn-sm nav-hire" id="nav-hire-btn" style="display:none">Hire Me</a>
+  <a href="#contact" class="btn btn-sm nav-hire" id="nav-hire-btn">Hire Me</a>
   <button class="ham" id="hambtn" aria-label="Open menu" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
-<!-- ═══ MOBILE OVERLAY ═══ -->
+<!-- MOBILE OVERLAY -->
 <div class="mob-ov" id="mobov" role="dialog" aria-modal="true" aria-label="Navigation">
   <ul class="mob-list">
-    <li><a href="#home"    class="mlink">Home    <span class="mob-arr">→</span></a></li>
-    <li><a href="#about"   class="mlink">About   <span class="mob-arr">→</span></a></li>
+    <li><a href="#home" class="mlink">Home <span class="mob-arr">→</span></a></li>
+    <li><a href="#about" class="mlink">About <span class="mob-arr">→</span></a></li>
     <li><a href="#service" class="mlink">Service <span class="mob-arr">→</span></a></li>
-    <li><a href="#project" class="mlink">Project <span class="mob-arr">→</span></a></li>
-    <li><a href="#skill"   class="mlink">Skill   <span class="mob-arr">→</span></a></li>
+    <li><a href="#portfolio" class="mlink">Portfolio <span class="mob-arr">→</span></a></li>
     <li><a href="#contact" class="mlink">Contact <span class="mob-arr">→</span></a></li>
   </ul>
   <div class="mob-foot">
-    <a href="#contact" class="btn btn-fill mlink" style="width:100%;max-width:270px;justify-content:center">Hire Me →</a>
+    <a href="#contact" class="btn btn-fill mlink" style="width:100%;max-width:250px;justify-content:center">Hire Me →</a>
     <div class="mob-socials">
       <a href="https://github.com/kielsvu" aria-label="GitHub" target="_blank" rel="noopener">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
       </a>
       <a href="mailto:kieltrres@gmail.com" aria-label="Email">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
       </a>
       <a href="https://discord.com/users/trustkiel" aria-label="Discord" target="_blank" rel="noopener">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.003.012.01.024.023.031a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.003.012.01.024.023.031a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
       </a>
     </div>
   </div>
@@ -86,23 +96,21 @@
 
 <div class="page">
 
-<!-- ═══ HERO ════════════════════════════════════ -->
+<!-- HERO -->
 <section id="home">
   <div class="hero-inner">
-    <div class="hero-tag r" id="hero-tag-el"></div>
-    <div class="hero-welcome r d1">Welcome</div>
+    <div class="hero-role r" id="hero-tag-el"></div>
+    <div class="hero-greeting r d1">Welcome</div>
     <h1 class="hero-name r d2">Hello, I'm<span class="gr">Kiel Torres.</span></h1>
-    <p class="hero-sub r d3">I mainly build <em>websites</em> and <em>Discord bots</em> — from sleek dashboards and portfolios to full key &amp; whitelist systems. I also do <em>Roblox Lua scripting</em> on the side.</p>
+    <p class="hero-bio r d3">I build <em>websites</em> and <em>Discord bots</em> including dashboards, portfolios and key systems. I also do <em>Roblox Lua scripting</em> on the side.</p>
     <div class="hero-stats r d4">
-      <div class="stat-box"><div class="stat-num" data-target="15" data-suffix="+">0</div><div class="stat-lbl">Projects Done</div></div>
+      <div class="stat-box"><div class="stat-num" data-target="15" data-suffix="+">0</div><div class="stat-lbl">Projects</div></div>
       <div class="stat-box"><div class="stat-num" data-target="1" data-suffix="yr">0</div><div class="stat-lbl">Experience</div></div>
-      <div class="stat-box"><div class="stat-num" data-target="10" data-suffix="+">0</div><div class="stat-lbl">Happy Clients</div></div>
+      <div class="stat-box"><div class="stat-num" data-target="10" data-suffix="+">0</div><div class="stat-lbl">Clients</div></div>
     </div>
     <div class="hero-btns r d5">
-      <a href="#contact" class="btn btn-fill">Hire Me
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-      <a href="#project" class="btn">View Work</a>
+      <a href="#contact" class="btn btn-fill">Hire Me <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <a href="#portfolio" class="btn">View Work</a>
     </div>
   </div>
   <div class="hero-scroll"><div class="sbar"></div>scroll</div>
@@ -110,221 +118,127 @@
 
 <div class="divider"></div>
 
-<!-- ═══ ABOUT ═══════════════════════════════════ -->
+<!-- ABOUT -->
 <section id="about">
-  <div class="sec-lbl r">Who I Am</div>
-  <h2 class="sec-title r d1">About Me</h2>
+  <div class="about-header">
+    <div class="sec-label r">Who I Am</div>
+    <h2 class="sec-title r d1">About Me</h2>
+  </div>
   <div class="about-grid">
     <div class="about-img-wrap r d2">
       <div class="about-frame">
         <div class="about-frame-inner">
-          <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--pp2)" stroke-width=".9"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#b8a0e8" stroke-width=".9"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
         </div>
+        <div class="exp-badge"><div class="exp-num">1yr</div><div class="exp-lbl">Experience</div></div>
       </div>
-      <div class="exp-badge"><div class="exp-num">1yr</div><div class="exp-lbl">Experience</div></div>
     </div>
-    <div>
+    <div class="about-body">
       <div class="about-txt r d3">
-        <p>I'm <strong>Kiel Torres</strong>, a student freelancer who focuses mainly on <strong>website development</strong> and <strong>Discord bots</strong>. I build polished web UIs, dashboards, and landing pages, plus feature-rich bots with key systems and HWID verification.</p>
-        <p>I also do <strong>Lua/Roblox exploit development</strong> on the side — ESP, aimbot, pathfinding AI, and HWID loaders. Whatever the project, I build things that actually work and look great.</p>
+        <p>I'm <strong>Kiel Torres</strong>, a student freelancer focused on <strong>website development</strong> and <strong>Discord bots</strong>. I build polished web UIs, dashboards and landing pages, along with feature-rich bots that handle key systems and HWID verification.</p>
+        <p>On the side I write <strong>Lua scripts for Roblox</strong> covering ESP, aimbot, pathfinding AI and HWID loaders. Whatever the project, I build things that work and look great.</p>
       </div>
       <div class="info-cards r d4">
-        <div class="info-card">
-          <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-          <div><div class="info-lbl">Location</div><div class="info-val">Philippines</div></div>
-        </div>
-        <div class="info-card">
-          <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
-          <div><div class="info-lbl">Email</div><div class="info-val">kieltrres@gmail.com</div></div>
-        </div>
-        <div class="info-card">
-          <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.003.012.01.024.023.031a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg></div>
-          <div><div class="info-lbl">Discord</div><div class="info-val">trustkiel</div></div>
-        </div>
-        <div class="info-card">
-          <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-          <div><div class="info-lbl">Status</div><div class="info-val">Student Freelancer · Open to work</div></div>
-        </div>
-        <div class="info-card">
-          <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-          <div><div class="info-lbl">Focus</div><div class="info-val">Websites · Discord Bots · (+ Lua)</div></div>
-        </div>
+        <div class="info-card"><div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="info-lbl">Location</div><div class="info-val">Philippines</div></div></div>
+        <div class="info-card"><div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div><div><div class="info-lbl">Email</div><div class="info-val"><a href="mailto:kieltrres@gmail.com">kieltrres@gmail.com</a></div></div></div>
+        <div class="info-card"><div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.003.012.01.024.023.031a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg></div><div><div class="info-lbl">Discord</div><div class="info-val">trustkiel</div></div></div>
+        <div class="info-card"><div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div><div><div class="info-lbl">Status</div><div class="info-val">Open to work</div></div></div>
+        <div class="info-card"><div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div><div class="info-lbl">Focus</div><div class="info-val">Web · Bots · Lua</div></div></div>
       </div>
-      <a href="#contact" class="btn btn-fill" style="margin-top:.35rem">Get In Touch
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
+      <a href="#contact" class="btn btn-fill r d5" style="align-self:flex-start">Get In Touch <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ═══ SKILLS ══════════════════════════════════ -->
-<section id="skill">
-  <div class="sec-lbl r">Expertise</div>
-  <h2 class="sec-title r d1">My Skills</h2>
-  <div class="skill-cats r d2">
-    <div>
-      <div class="skill-cat-lbl">Programming Languages</div>
-      <div class="chips">
-        <span class="chip"><span class="chip-dot"></span>JavaScript</span>
-        <span class="chip"><span class="chip-dot"></span>Lua</span>
-        <span class="chip"><span class="chip-dot"></span>Python</span>
-        <span class="chip"><span class="chip-dot"></span>HTML5 / CSS3</span>
-      </div>
-    </div>
-    <div>
-      <div class="skill-cat-lbl">Front-End Development</div>
-      <div class="chips">
-        <span class="chip"><span class="chip-dot"></span>Responsive Design</span>
-        <span class="chip"><span class="chip-dot"></span>UI / UX Design</span>
-        <span class="chip"><span class="chip-dot"></span>Web Dashboards</span>
-      </div>
-    </div>
-    <div>
-      <div class="skill-cat-lbl">Back-End &amp; Databases</div>
-      <div class="chips">
-        <span class="chip"><span class="chip-dot"></span>Node.js</span>
-        <span class="chip"><span class="chip-dot"></span>Firebase</span>
-        <span class="chip"><span class="chip-dot"></span>REST APIs</span>
-      </div>
-    </div>
-    <div>
-      <div class="skill-cat-lbl">Discord Bot Dev</div>
-      <div class="chips">
-        <span class="chip"><span class="chip-dot"></span>Discord.js v14</span>
-        <span class="chip"><span class="chip-dot"></span>Key / Whitelist Systems</span>
-        <span class="chip"><span class="chip-dot"></span>HWID Verification</span>
-      </div>
-    </div>
-    <div>
-      <div class="skill-cat-lbl">Roblox &amp; Exploit Dev</div>
-      <div class="chips">
-        <span class="chip"><span class="chip-dot"></span>Executor Scripting</span>
-        <span class="chip"><span class="chip-dot"></span>ESP / Aimbot</span>
-        <span class="chip"><span class="chip-dot"></span>Pathfinding AI</span>
-        <span class="chip"><span class="chip-dot"></span>Anti-Detection</span>
-      </div>
-    </div>
-    <div>
-      <div class="skill-cat-lbl">Tools</div>
-      <div class="chips">
-        <span class="chip"><span class="chip-dot"></span>Git / GitHub</span>
-        <span class="chip"><span class="chip-dot"></span>VS Code</span>
-        <span class="chip"><span class="chip-dot"></span>GitHub Pages</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ═══ SERVICES ════════════════════════════════ -->
+<!-- SERVICES -->
 <section id="service">
-  <div class="sec-lbl r">What I Offer</div>
+  <div class="sec-label r">What I Do</div>
   <h2 class="sec-title r d1">Services</h2>
-  <div class="svc-grid r d2">
-    <div class="svc-card">
-      <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
-      <div class="svc-title">Web Design &amp; Dev</div>
-      <div class="svc-desc">Responsive, animated portfolios, dashboards &amp; landing pages. Clean HTML/CSS/JS, GitHub Pages compatible, zero dependencies.</div>
+  <div class="svc-grid">
+    <div class="svc-card r d2"><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div><div class="svc-title">Web Development</div><div class="svc-desc">Portfolios, dashboards, landing pages and SaaS UIs. Clean, fast and fully responsive.</div></div>
+    <div class="svc-card r d3"><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.003.012.01.024.023.031a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg></div><div class="svc-title">Discord Bot Dev</div><div class="svc-desc">Slash commands, whitelist &amp; key management, HWID locking, brute-force protection and subscription tiers.</div></div>
+    <div class="svc-card r d4"><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="svc-title">Roblox / Exploit Dev</div><div class="svc-desc">Executor Lua scripts including ESP, aimbot, pathfinding AI and anti-detection. HWID-bound and mobile-optimized.</div></div>
+    <div class="svc-card r d5"><div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg></div><div class="svc-title">Backend Systems</div><div class="svc-desc">Firebase backends, key lifecycle management, HWID binding, real-time dashboards &amp; secure APIs.</div></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="sec-label r">My Work</div>
+  <h2 class="sec-title r d1">Portfolio</h2>
+  <p class="port-sub r d2">A look at what I've built and the tools I use.</p>
+  <div class="port-tabs r d3" role="tablist">
+    <button class="port-tab active" data-tab="projects" role="tab" aria-selected="true">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>Projects
+    </button>
+    <button class="port-tab" data-tab="techstack" role="tab" aria-selected="false">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>Tech Stack
+    </button>
+    <div class="port-tab-ink" id="tab-ink"></div>
+  </div>
+  <div class="port-panel" id="tab-projects" role="tabpanel"><div class="proj-grid" id="proj-grid"></div></div>
+  <div class="port-panel hidden" id="tab-techstack" role="tabpanel">
+    <div class="tech-section">
+      <div class="tech-section-label">Coding Languages</div>
+      <div class="tech-grid-langs" id="tech-grid-langs"></div>
     </div>
-    <div class="svc-card">
-      <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.003.012.01.024.023.031a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg></div>
-      <div class="svc-title">Discord Bot Dev</div>
-      <div class="svc-desc">Bots with slash commands, whitelist &amp; key management, HWID locking, brute-force protection, subscription tiers &amp; admin panels.</div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-      <div class="svc-title">Roblox / Exploit Dev</div>
-      <div class="svc-desc">Executor Lua scripts — ESP, aimbot, pathfinding AI, anti-detection. HWID-bound, mobile-optimized &amp; compatible with major executors.</div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg></div>
-      <div class="svc-title">Backend Systems</div>
-      <div class="svc-desc">Firebase backends, key lifecycle management, HWID binding, subscription tiers, real-time dashboards &amp; secure API integrations.</div>
+    <div class="tech-section">
+      <div class="tech-section-label">Apps &amp; Tools</div>
+      <div class="tech-grid-apps" id="tech-grid-apps"></div>
     </div>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- ═══ PROJECTS ════════════════════════════════ -->
-<section id="project">
-  <div class="sec-lbl r">Portfolio</div>
-  <h2 class="sec-title r d1">Featured Projects</h2>
-  <div class="proj-grid r d2" id="proj-grid"></div>
-</section>
-
-<div class="divider"></div>
-
-<!-- ═══ CONTACT ═════════════════════════════════ -->
+<!-- CONTACT -->
 <section id="contact">
   <div class="contact-inner">
-    <div class="sec-lbl r">Let's Talk</div>
+    <div class="sec-label r">Let's Talk</div>
     <h2 class="sec-title r d1">Get In Touch</h2>
-    <p class="r d2">Have a project in mind? I'm open to freelance commissions and collaborations. Reach out via email or Discord and let's build something together.</p>
+    <p class="r d2">Have a project in mind? I'm open to freelance commissions and collaborations. Reach out via email or Discord.</p>
     <div class="contact-btns r d3">
-      <a href="mailto:kieltrres@gmail.com" class="btn btn-fill">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        Send Email
-      </a>
-      <a href="https://discord.com/users/trustkiel" class="btn" target="_blank" rel="noopener">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.003.012.01.024.023.031a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-        Discord
-      </a>
+      <a href="mailto:kieltrres@gmail.com" class="btn btn-fill"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>Send Email</a>
+      <a href="https://discord.com/users/trustkiel" class="btn" target="_blank" rel="noopener"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.003.012.01.024.023.031a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>Discord</a>
     </div>
     <div class="social-row r d4">
-      <a href="https://github.com/kielsvu" class="btn btn-icon" aria-label="GitHub" target="_blank" rel="noopener">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
-      </a>
-      <a href="mailto:kieltrres@gmail.com" class="btn btn-icon" aria-label="Email">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-      </a>
-      <a href="https://discord.com/users/trustkiel" class="btn btn-icon" aria-label="Discord" target="_blank" rel="noopener">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.003.012.01.024.023.031a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>
-      </a>
+      <a href="https://github.com/kielsvu" class="btn btn-icon" aria-label="GitHub" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg></a>
+      <a href="mailto:kieltrres@gmail.com" class="btn btn-icon" aria-label="Email"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
+      <a href="https://discord.com/users/trustkiel" class="btn btn-icon" aria-label="Discord" target="_blank" rel="noopener"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.003.012.01.024.023.031a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg></a>
     </div>
   </div>
 </section>
+</div>
 
-</div><!-- .page -->
-
-<!-- ═══ LIGHTBOX ═══ -->
+<!-- LIGHTBOX -->
 <div id="lb" role="dialog" aria-modal="true">
   <div class="lb-wrap">
-    <button class="lb-x" id="lb-x" aria-label="Close">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
+    <button class="lb-x" id="lb-x" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
     <div class="lb-panel">
       <div class="lb-title" id="lb-title"></div>
-      <div class="lb-desc"  id="lb-desc"></div>
+      <div class="lb-desc" id="lb-desc"></div>
       <div class="lb-chips" id="lb-chips"></div>
     </div>
     <div class="lb-nav">
-      <button class="btn btn-sm" id="lb-prev">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-        Prev
-      </button>
-      <button class="btn btn-sm" id="lb-next">
-        Next
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-      </button>
-      </div>
+      <button class="btn btn-sm" id="lb-prev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg> Prev</button>
+      <button class="btn btn-sm" id="lb-next">Next <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg></button>
+    </div>
   </div>
 </div>
 
 <footer>
   <span class="foot-logo">KIEL.DEV</span>
-  <span>© 2025 Kiel Torres · Student Freelancer</span>
+  <span>© 2025 Kiel Torres · All rights reserved</span>
   <div class="foot-links">
-    <a href="#home">Home</a>
-    <a href="#about">About</a>
-    <a href="#skill">Skill</a>
-    <a href="#contact">Contact</a>
+    <a href="#home">Home</a><a href="#about">About</a>
+    <a href="#portfolio">Portfolio</a><a href="#contact">Contact</a>
   </div>
 </footer>
 
-<script src="main.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
