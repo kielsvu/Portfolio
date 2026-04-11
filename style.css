@@ -130,6 +130,21 @@ body.has-mouse.cbtn #cur{
 ════════════════════════════════════════════════ */
 nav{
   position:fixed;z-index:600;
+  display:flex;align-items:center;justify-content:space-between;gap:1.6rem;
+  transition:background .32s,border-color .32s,box-shadow .32s,opacity .30s,transform .35s ease;
+}
+
+/* ══ NAV ══════════════════════════════════════════
+   Strategy: width-only breakpoints so every device
+   ≥600px wide (tablet landscape, tablet portrait,
+   desktop-mode phone, desktop) gets the floating pill.
+   Pure-width is the only reliable signal for "enough
+   space to show links" — pointer/hover cannot be
+   trusted because a tablet with no mouse reports
+   hover:none and would get the hamburger even on iPad.
+════════════════════════════════════════════════ */
+nav{
+  position:fixed;z-index:600;
   display:flex;align-items:center;justify-content:space-between;gap:1rem;
   transition:background .32s,border-color .32s,box-shadow .32s,opacity .30s,transform .35s ease;
 }
@@ -207,7 +222,7 @@ nav{
   background:var(--pp);transform:scaleX(0);transform-origin:left;transition:transform .24s ease;
 }
 .nav-links a:hover,.nav-links a.active{color:var(--pp2)}
-.nav-links a:hover::after,.nav-links a.active::after{transform:scaleX(1)}
+.nav-links a:hover::after{transform:scaleX(1)}
 
 /* Hire Me — desktop only, shown by JS */
 .nav-hire{display:none;flex-shrink:0}
@@ -320,6 +335,8 @@ section{padding:5rem 3.5rem}
 .about-frame{width:100%;aspect-ratio:3/4;border:1px solid var(--b2);border-radius:var(--r3);overflow:hidden;background:var(--bg3);display:flex;align-items:center;justify-content:center;position:relative}
 .about-frame-inner{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 38%,rgba(120,72,210,.16),rgba(8,4,22,.94) 68%)}
 .about-frame-inner svg{opacity:.09}
+.about-photo{width:100%;height:100%;object-fit:cover;object-position:center top;display:block;position:absolute;inset:0}
+.about-photo-fallback{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:radial-gradient(ellipse at 50% 38%,rgba(120,72,210,.16),rgba(8,4,22,.94) 68%)}
 .exp-badge{position:absolute;bottom:0;left:0;right:0;padding:.7rem .9rem;background:rgba(8,5,20,.82);border-top:1px solid var(--b2);backdrop-filter:blur(10px);display:flex;align-items:baseline;gap:.4rem}
 .exp-num{font-family:'Syne',sans-serif;font-weight:800;font-size:1.45rem;background:linear-gradient(135deg,var(--pp),var(--pp3));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .exp-lbl{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--t3)}
@@ -500,12 +517,48 @@ footer{padding:1.1rem 3.5rem;border-top:1px solid var(--b1);display:flex;justify
   .stat-num{font-size:1.15rem}
   .hero-btns{gap:.35rem}
   .hero-scroll{display:none}
-  .about-grid{grid-template-columns:1fr;gap:1.2rem}
-  .about-img-wrap{display:flex;align-items:center;gap:.85rem}
-  .about-frame{width:72px;height:72px;aspect-ratio:unset;border-radius:var(--r2);flex-shrink:0}
-  .about-frame-inner svg{width:26px;height:26px}
-  .exp-badge{position:static;border:1px solid var(--b2);border-radius:var(--r2);background:rgba(8,5,20,.7);padding:.45rem .65rem;flex-direction:column;align-items:flex-start;gap:.05rem}
-  .exp-num{font-size:1.05rem}
+  
+  /* ABOUT MOBILE — overlay badge like desktop */
+  .about-grid{grid-template-columns:1fr;gap:1.4rem}
+  .about-img-wrap{
+    display:flex;
+    justify-content:center;
+  }
+  .about-frame{
+    width:140px;               /* Slightly larger for visibility */
+    aspect-ratio:3/4;
+    border-radius:var(--r3);
+    overflow:hidden;           /* Keep overlay contained */
+    position:relative;
+    border:1px solid var(--b2);
+  }
+  .about-photo{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center top;
+    display:block;
+  }
+  .about-frame-inner{display:none}
+  
+  /* Badge stays at bottom, just like desktop */
+  .exp-badge{
+    position:absolute;
+    bottom:0;
+    left:0;
+    right:0;
+    padding:.55rem .6rem;
+    background:rgba(8,5,20,.88);
+    border-top:1px solid var(--b2);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    display:flex;
+    align-items:baseline;
+    gap:.4rem;
+    border-radius:0;           /* Flush with frame bottom */
+  }
+  .exp-num{font-size:1.2rem}
+  
   .about-body{gap:1rem}
   .about-txt p{font-size:.8rem}
   .info-cards{grid-template-columns:1fr;gap:.25rem}
