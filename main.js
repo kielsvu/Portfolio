@@ -241,6 +241,121 @@
 })();
 
 /* ═══════════════════════════════════════════════════
+   BACKGROUND PARTICLE NETWORK (glowing dots + connections)
+   This runs on a separate canvas #bg-particles, behind everything.
+═══════════════════════════════════════════════════ */
+(function(){
+  var pCanvas = document.getElementById("bg-particles");
+  if (!pCanvas) return; // skip if canvas missing
+  var pCtx = pCanvas.getContext("2d");
+  var pW, pH;
+  var isMobile = window.innerWidth < 700;
+  var nodeCount = isMobile ? 32 : 60;
+  var connectionDist = isMobile ? 135 : 165;
+  var particles = [];
+
+  function pResize() {
+    pW = pCanvas.width = window.innerWidth;
+    pH = pCanvas.height = window.innerHeight;
+    isMobile = window.innerWidth < 700;
+    nodeCount = isMobile ? 32 : 60;
+    connectionDist = isMobile ? 135 : 165;
+    initParticles();
+  }
+
+  function initParticles() {
+    particles = [];
+    for (var i = 0; i < nodeCount; i++) {
+      particles.push({
+        x: Math.random() * pW,
+        y: Math.random() * pH,
+        vx: (Math.random() - 0.5) * (isMobile ? 0.22 : 0.32),
+        vy: (Math.random() - 0.5) * (isMobile ? 0.22 : 0.32),
+        r: Math.random() * 1.8 + 0.7,
+        o: Math.random() * 0.48 + 0.12
+      });
+    }
+  }
+
+  window.addEventListener("resize", pResize, { passive: true });
+  pResize();
+
+  var mousePos = { x: -9999, y: -9999 };
+  document.addEventListener("mousemove", function(e) {
+    mousePos.x = e.clientX;
+    mousePos.y = e.clientY;
+  }, { passive: true });
+
+  function animateParticles() {
+    requestAnimationFrame(animateParticles);
+    pCtx.clearRect(0, 0, pW, pH);
+
+    // update positions
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      p.x += p.vx;
+      p.y += p.vy;
+      if (p.x < -20) p.x = pW + 20;
+      if (p.x > pW + 20) p.x = -20;
+      if (p.y < -20) p.y = pH + 20;
+      if (p.y > pH + 20) p.y = -20;
+
+      // mouse attraction (desktop only)
+      if (!isMobile && mousePos.x > 0 && mousePos.y > 0) {
+        var dx = mousePos.x - p.x;
+        var dy = mousePos.y - p.y;
+        var dist2 = dx*dx + dy*dy;
+        if (dist2 < 36000) {
+          var dist = Math.sqrt(dist2);
+          p.vx += dx / dist * 0.008;
+          p.vy += dy / dist * 0.008;
+        }
+      }
+
+      p.vx *= 0.994;
+      p.vy *= 0.994;
+      var sp = Math.hypot(p.vx, p.vy);
+      if (sp < 0.12) {
+        p.vx += (Math.random() - 0.5) * 0.26;
+        p.vy += (Math.random() - 0.5) * 0.26;
+      }
+    }
+
+    // draw connections
+    for (var i = 0; i < particles.length; i++) {
+      for (var j = i + 1; j < particles.length; j++) {
+        var dx = particles[i].x - particles[j].x;
+        var dy = particles[i].y - particles[j].y;
+        var d2 = dx*dx + dy*dy;
+        if (d2 < connectionDist * connectionDist) {
+          var dist = Math.sqrt(d2);
+          var f = 1 - dist / connectionDist;
+          var alpha = f * (isMobile ? 0.12 : 0.22);
+          pCtx.beginPath();
+          pCtx.moveTo(particles[i].x, particles[i].y);
+          pCtx.lineTo(particles[j].x, particles[j].y);
+          pCtx.strokeStyle = "rgba(170, 140, 220, " + alpha + ")";
+          pCtx.lineWidth = f * 0.8;
+          pCtx.stroke();
+        }
+      }
+    }
+
+    // draw nodes
+    for (var i = 0; i < particles.length; i++) {
+      var p = particles[i];
+      pCtx.beginPath();
+      pCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      pCtx.fillStyle = "rgba(180, 150, 225, " + p.o + ")";
+      pCtx.fill();
+    }
+  }
+
+  animateParticles();
+})();
+
+/* ========== REMAINING ORIGINAL CODE (PROJECTS, TABS, LIGHTBOX, SCROLL, ETC.) ========== */
+/* ═══════════════════════════════════════════════════
    PROJECT DATA
 ═══════════════════════════════════════════════════ */
 var PROJ = [
@@ -496,6 +611,5 @@ document.querySelectorAll("[data-target]").forEach(function(el){ co.observe(el);
     }
     setTimeout(tick,del?45:80);
   }
-  /* Start after intro completes (~4.2s total: 8chars*110ms + 500ms + 600ms + 700ms + 250ms + 700ms) */
   setTimeout(tick,4200);
 })();
