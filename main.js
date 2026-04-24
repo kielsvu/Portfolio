@@ -1,8 +1,8 @@
 "use strict";
 
-/* ═══════════════════════════════════════════════════
-   INTRO — particle canvas + "Kiel.Dev" typewriter
-═══════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   INTRO â€” particle canvas + "Kiel.Dev" typewriter
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 (function(){
   var ic   = document.getElementById("intro-canvas");
   var ictx = ic.getContext("2d");
@@ -111,9 +111,9 @@
   }
 })();
 
-/* ═══════════════════════════════════════════════════
-   CUSTOM CURSOR — fixed for wired + Bluetooth mice
-═══════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   CUSTOM CURSOR â€” fixed for wired + Bluetooth mice
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 (function(){
   var dot        = document.getElementById("cur");
   var hasMouse   = false;
@@ -148,9 +148,9 @@
   }, {passive:true});
 })();
 
-/* ═══════════════════════════════════════════════════
-   NEURON NETWORK CANVAS — replaces moon/meteor
-═══════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   NEURON NETWORK CANVAS â€” replaces moon/meteor
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 (function(){
   var canvas = document.getElementById("nc");
   var ctx    = canvas.getContext("2d");
@@ -240,136 +240,21 @@
   draw();
 })();
 
-/* ═══════════════════════════════════════════════════
-   BACKGROUND PARTICLE NETWORK (glowing dots + connections)
-   This runs on a separate canvas #bg-particles, behind everything.
-═══════════════════════════════════════════════════ */
-(function(){
-  var pCanvas = document.getElementById("bg-particles");
-  if (!pCanvas) return; // skip if canvas missing
-  var pCtx = pCanvas.getContext("2d");
-  var pW, pH;
-  var isMobile = window.innerWidth < 700;
-  var nodeCount = isMobile ? 32 : 60;
-  var connectionDist = isMobile ? 135 : 165;
-  var particles = [];
-
-  function pResize() {
-    pW = pCanvas.width = window.innerWidth;
-    pH = pCanvas.height = window.innerHeight;
-    isMobile = window.innerWidth < 700;
-    nodeCount = isMobile ? 32 : 60;
-    connectionDist = isMobile ? 135 : 165;
-    initParticles();
-  }
-
-  function initParticles() {
-    particles = [];
-    for (var i = 0; i < nodeCount; i++) {
-      particles.push({
-        x: Math.random() * pW,
-        y: Math.random() * pH,
-        vx: (Math.random() - 0.5) * (isMobile ? 0.22 : 0.32),
-        vy: (Math.random() - 0.5) * (isMobile ? 0.22 : 0.32),
-        r: Math.random() * 1.8 + 0.7,
-        o: Math.random() * 0.48 + 0.12
-      });
-    }
-  }
-
-  window.addEventListener("resize", pResize, { passive: true });
-  pResize();
-
-  var mousePos = { x: -9999, y: -9999 };
-  document.addEventListener("mousemove", function(e) {
-    mousePos.x = e.clientX;
-    mousePos.y = e.clientY;
-  }, { passive: true });
-
-  function animateParticles() {
-    requestAnimationFrame(animateParticles);
-    pCtx.clearRect(0, 0, pW, pH);
-
-    // update positions
-    for (var i = 0; i < particles.length; i++) {
-      var p = particles[i];
-      p.x += p.vx;
-      p.y += p.vy;
-      if (p.x < -20) p.x = pW + 20;
-      if (p.x > pW + 20) p.x = -20;
-      if (p.y < -20) p.y = pH + 20;
-      if (p.y > pH + 20) p.y = -20;
-
-      // mouse attraction (desktop only)
-      if (!isMobile && mousePos.x > 0 && mousePos.y > 0) {
-        var dx = mousePos.x - p.x;
-        var dy = mousePos.y - p.y;
-        var dist2 = dx*dx + dy*dy;
-        if (dist2 < 36000) {
-          var dist = Math.sqrt(dist2);
-          p.vx += dx / dist * 0.008;
-          p.vy += dy / dist * 0.008;
-        }
-      }
-
-      p.vx *= 0.994;
-      p.vy *= 0.994;
-      var sp = Math.hypot(p.vx, p.vy);
-      if (sp < 0.12) {
-        p.vx += (Math.random() - 0.5) * 0.26;
-        p.vy += (Math.random() - 0.5) * 0.26;
-      }
-    }
-
-    // draw connections
-    for (var i = 0; i < particles.length; i++) {
-      for (var j = i + 1; j < particles.length; j++) {
-        var dx = particles[i].x - particles[j].x;
-        var dy = particles[i].y - particles[j].y;
-        var d2 = dx*dx + dy*dy;
-        if (d2 < connectionDist * connectionDist) {
-          var dist = Math.sqrt(d2);
-          var f = 1 - dist / connectionDist;
-          var alpha = f * (isMobile ? 0.12 : 0.22);
-          pCtx.beginPath();
-          pCtx.moveTo(particles[i].x, particles[i].y);
-          pCtx.lineTo(particles[j].x, particles[j].y);
-          pCtx.strokeStyle = "rgba(170, 140, 220, " + alpha + ")";
-          pCtx.lineWidth = f * 0.8;
-          pCtx.stroke();
-        }
-      }
-    }
-
-    // draw nodes
-    for (var i = 0; i < particles.length; i++) {
-      var p = particles[i];
-      pCtx.beginPath();
-      pCtx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      pCtx.fillStyle = "rgba(180, 150, 225, " + p.o + ")";
-      pCtx.fill();
-    }
-  }
-
-  animateParticles();
-})();
-
-/* ========== REMAINING ORIGINAL CODE (PROJECTS, TABS, LIGHTBOX, SCROLL, ETC.) ========== */
-/* ═══════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    PROJECT DATA
-═══════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 var PROJ = [
-  {tag:"Web Dashboard · Firebase",title:"Quantum Dashboard",desc:"Real-time analytics dashboard for the Quantum subscription service. Tracks active keys, HWID logs, revenue per tier, user activity, and admin actions via Firebase Realtime DB.",chips:["Firebase","JavaScript","HTML/CSS","Chart.js","GitHub Pages"],grad:"linear-gradient(135deg,rgba(55,110,200,.55) 0%,rgba(14,38,100,.9) 55%,rgba(4,3,14,1) 100%)",acc:"rgba(75,140,255,.28)",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>'},
-  {tag:"Analytics · Firebase",title:"Analytics Panel",desc:"Standalone analytics panel tracking key activations, churn rate, HWID collision detection, tier distribution charts, and daily revenue. Static web app on GitHub Pages.",chips:["Firebase","Vanilla JS","HTML5/CSS3","GitHub Pages"],grad:"linear-gradient(135deg,rgba(160,50,200,.5) 0%,rgba(70,10,100,.9) 55%,rgba(4,3,14,1) 100%)",acc:"rgba(190,80,255,.26)",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>'},
-  {tag:"Web Panel · Backend",title:"Key System Panel",desc:"Full key lifecycle management: generate, bind HWID, set expiry, apply tiered cooldowns, revoke and reset. Synced with Discord slash commands and Firebase.",chips:["Firebase","Discord.js","Node.js","HTML/CSS","Lua Loader"],grad:"linear-gradient(135deg,rgba(70,190,110,.48) 0%,rgba(18,72,34,.9) 55%,rgba(4,3,14,1) 100%)",acc:"rgba(80,210,120,.26)",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>'},
-  {tag:"Web Dashboard · UI",title:"Garcia Script UI",desc:"Custom web UI panel for Garcia Script, a Roblox exploit toolkit. Dark glassmorphism design with toggle switches, sliders, and category tabs. Fully responsive.",chips:["HTML5","CSS3","JavaScript","Glassmorphism","Lua"],grad:"linear-gradient(135deg,rgba(200,140,40,.48) 0%,rgba(90,50,10,.9) 55%,rgba(4,3,14,1) 100%)",acc:"rgba(220,160,50,.26)",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>'},
-  {tag:"Discord Bot · Firebase",title:"WhitelistBot Pro",desc:"Feature-rich Discord whitelist bot with Monthly and Lifetime subscription tiers, HWID verification, brute-force detection with auto-timeout, and auto-delivery Lua loader.",chips:["Discord.js v14","Firebase","Node.js","Slash Commands","HWID"],grad:"linear-gradient(135deg,rgba(200,80,80,.48) 0%,rgba(90,18,18,.9) 55%,rgba(4,3,14,1) 100%)",acc:"rgba(220,100,80,.26)",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.003.012.01.024.023.031a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>'},
-  {tag:"Discord Bot · Vouching",title:"Vouchlist Dashboard",desc:"Discord bot and web dashboard combo for managing customer vouches. Supports adding, verifying, and displaying vouches with a public leaderboard. Anti-spam built in.",chips:["Discord.js v14","Firebase","Node.js","HTML/CSS","GitHub Pages"],grad:"linear-gradient(135deg,rgba(80,140,200,.48) 0%,rgba(18,46,90,.9) 55%,rgba(4,3,14,1) 100%)",acc:"rgba(100,160,230,.26)",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>'}
+  {tag:"Web Dashboard Â· Firebase",title:"Quantum Dashboard",desc:"Real-time analytics dashboard for the Quantum subscription service. Tracks active keys, HWID logs, revenue per tier, user activity, and admin actions via Firebase Realtime DB.",chips:["Firebase","JavaScript","HTML/CSS","Chart.js","GitHub Pages"],grad:"linear-gradient(135deg,rgba(55,110,200,.55) 0%,rgba(14,38,100,.9) 55%,rgba(4,3,14,1) 100%)",acc:"rgba(75,140,255,.28)",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>'},
+  {tag:"Analytics Â· Firebase",title:"Analytics Panel",desc:"Standalone analytics panel tracking key activations, churn rate, HWID collision detection, tier distribution charts, and daily revenue. Static web app on GitHub Pages.",chips:["Firebase","Vanilla JS","HTML5/CSS3","GitHub Pages"],grad:"linear-gradient(135deg,rgba(160,50,200,.5) 0%,rgba(70,10,100,.9) 55%,rgba(4,3,14,1) 100%)",acc:"rgba(190,80,255,.26)",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>'},
+  {tag:"Web Panel Â· Backend",title:"Key System Panel",desc:"Full key lifecycle management: generate, bind HWID, set expiry, apply tiered cooldowns, revoke and reset. Synced with Discord slash commands and Firebase.",chips:["Firebase","Discord.js","Node.js","HTML/CSS","Lua Loader"],grad:"linear-gradient(135deg,rgba(70,190,110,.48) 0%,rgba(18,72,34,.9) 55%,rgba(4,3,14,1) 100%)",acc:"rgba(80,210,120,.26)",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"/></svg>'},
+  {tag:"Web Dashboard Â· UI",title:"Garcia Script UI",desc:"Custom web UI panel for Garcia Script, a Roblox exploit toolkit. Dark glassmorphism design with toggle switches, sliders, and category tabs. Fully responsive.",chips:["HTML5","CSS3","JavaScript","Glassmorphism","Lua"],grad:"linear-gradient(135deg,rgba(200,140,40,.48) 0%,rgba(90,50,10,.9) 55%,rgba(4,3,14,1) 100%)",acc:"rgba(220,160,50,.26)",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>'},
+  {tag:"Discord Bot Â· Firebase",title:"WhitelistBot Pro",desc:"Feature-rich Discord whitelist bot with Monthly and Lifetime subscription tiers, HWID verification, brute-force detection with auto-timeout, and auto-delivery Lua loader.",chips:["Discord.js v14","Firebase","Node.js","Slash Commands","HWID"],grad:"linear-gradient(135deg,rgba(200,80,80,.48) 0%,rgba(90,18,18,.9) 55%,rgba(4,3,14,1) 100%)",acc:"rgba(220,100,80,.26)",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057c.003.012.01.024.023.031a19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03z"/></svg>'},
+  {tag:"Discord Bot Â· Vouching",title:"Vouchlist Dashboard",desc:"Discord bot and web dashboard combo for managing customer vouches. Supports adding, verifying, and displaying vouches with a public leaderboard. Anti-spam built in.",chips:["Discord.js v14","Firebase","Node.js","HTML/CSS","GitHub Pages"],grad:"linear-gradient(135deg,rgba(80,140,200,.48) 0%,rgba(18,46,90,.9) 55%,rgba(4,3,14,1) 100%)",acc:"rgba(100,160,230,.26)",icon:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>'}
 ];
 
-/* ═══════════════════════════════════════════════════
-   TECH DATA — Languages + Apps/Tools
-═══════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   TECH DATA â€” Languages + Apps/Tools
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 var LANG = [
   {name:"HTML5",     svg:'<svg viewBox="0 0 24 24" fill="#e34c26"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg>'},
   {name:"CSS3",      svg:'<svg viewBox="0 0 24 24" fill="#2965f1"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/></svg>'},
@@ -401,9 +286,9 @@ var APPS = [
   {name:"Pydroid",   svg:'<svg viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#1e3a5f"/><path fill="#ffd43b" d="M12 3.5C9 3.5 7 4.8 7 6.5v1.5h5v.5H6C4.3 8.5 3 9.8 3 11.5v2C3 15.2 4.3 16.5 6 16.5h1v-1.5c0-1.7 1.3-3 3-3h4c1.7 0 3-1.3 3-3V6.5C17 4.8 15 3.5 12 3.5zm-1.5 2a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5z"/><path fill="#4584b6" d="M12 20.5c3 0 5-1.3 5-3v-1.5h-5v-.5h6c1.7 0 3-1.3 3-3v-2c0-1.7-1.3-3-3-3h-1v1.5c0 1.7-1.3 3-3 3H10c-1.7 0-3 1.3-3 3v2c0 1.7 2 3 5 3zm1.5-2a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5z"/></svg>'}
 ];
 
-/* ═══════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    RENDER PROJECTS
-═══════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 (function(){
   var g = document.getElementById("proj-grid");
   PROJ.forEach(function(p, i){
@@ -426,9 +311,9 @@ var APPS = [
   });
 })();
 
-/* ═══════════════════════════════════════════════════
-   RENDER TECH STACK — two separate grids
-═══════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   RENDER TECH STACK â€” two separate grids
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 (function(){
   var gl = document.getElementById("tech-grid-langs");
   LANG.forEach(function(t){
@@ -455,9 +340,9 @@ function animateTechCards(){
   });
 }
 
-/* ═══════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    PORTFOLIO TABS
-═══════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 (function(){
   var tabs   = document.querySelectorAll(".port-tab");
   var ink    = document.getElementById("tab-ink");
@@ -485,9 +370,9 @@ function animateTechCards(){
   });
 })();
 
-/* ═══════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    LIGHTBOX
-═══════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 var lbIdx = 0;
 function openLb(i){ lbIdx=i; renderLb(); document.getElementById("lb").classList.add("on"); document.body.style.overflow="hidden"; }
 function closeLb(){ document.getElementById("lb").classList.remove("on"); document.body.style.overflow=""; }
@@ -509,9 +394,9 @@ document.addEventListener("keydown",function(e){
   if(e.key==="ArrowRight"){ lbIdx=(lbIdx+1)%PROJ.length; renderLb(); }
 });
 
-/* ═══════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    MOBILE MENU
-═══════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 var mnav=document.getElementById("mnav"),mobov=document.getElementById("mobov"),hambtn=document.getElementById("hambtn"),menuOpen=false;
 function openMenu(){ menuOpen=true; mnav.classList.add("open"); mobov.classList.add("open"); document.body.style.overflow="hidden"; hambtn.setAttribute("aria-expanded","true"); hambtn.setAttribute("aria-label","Close menu"); }
 function closeMenu(){ menuOpen=false; mnav.classList.remove("open"); mobov.classList.remove("open"); document.body.style.overflow=""; hambtn.setAttribute("aria-expanded","false"); hambtn.setAttribute("aria-label","Open menu"); }
@@ -519,7 +404,7 @@ hambtn.addEventListener("click",function(){ menuOpen?closeMenu():openMenu(); });
 hambtn.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){ e.preventDefault(); menuOpen?closeMenu():openMenu(); }});
 document.querySelectorAll(".mlink").forEach(function(a){ a.addEventListener("click",closeMenu); });
 
-/* Hire Me — show on wide screens */
+/* Hire Me â€” show on wide screens */
 (function(){
   var btn=document.getElementById("nav-hire-btn"); if(!btn) return;
   var mq=window.matchMedia("(min-width:900px)");
@@ -527,9 +412,9 @@ document.querySelectorAll(".mlink").forEach(function(a){ a.addEventListener("cli
   mq.addEventListener("change",chk); chk();
 })();
 
-/* ═══════════════════════════════════════════════════
-   SCROLL — hide pill on scroll-down, show on scroll-up
-═══════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   SCROLL â€” hide pill on scroll-down, show on scroll-up
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 var lastSY=0;
 var desktopMQ=window.matchMedia("(min-width:600px)");
 window.addEventListener("scroll",function(){
@@ -551,17 +436,17 @@ window.addEventListener("scroll",function(){
   lastSY=s;
 },{passive:true});
 
-/* ═══════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    SCROLL REVEAL
-═══════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 var ro=new IntersectionObserver(function(en){
   en.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add("v"); ro.unobserve(e.target); }});
 },{threshold:.04,rootMargin:"0px 0px -30px 0px"});
 document.querySelectorAll(".r").forEach(function(el){ ro.observe(el); });
 
-/* ═══════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    COUNTER ANIMATION
-═══════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 var co=new IntersectionObserver(function(en){
   en.forEach(function(e){
     if(!e.isIntersecting) return;
@@ -572,9 +457,9 @@ var co=new IntersectionObserver(function(en){
 },{threshold:.5});
 document.querySelectorAll("[data-target]").forEach(function(el){ co.observe(el); });
 
-/* ═══════════════════════════════════════════════════
-   CURSOR — single dot, fixed for BT/wired mouse
-═══════════════════════════════════════════════════ */
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+   CURSOR â€” single dot, fixed for BT/wired mouse
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 (function(){
   var dot=document.getElementById("cur"),hasMouse=false,touchActive=false,touchTimer=null,HALF=4.5;
   document.addEventListener("touchstart",function(){ touchActive=true; clearTimeout(touchTimer); touchTimer=setTimeout(function(){ touchActive=false; },800); },{passive:true});
@@ -591,9 +476,9 @@ document.querySelectorAll("[data-target]").forEach(function(el){ co.observe(el);
   },{passive:true});
 })();
 
-/* ═══════════════════════════════════════════════════
+/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
    HERO TYPEWRITER
-═══════════════════════════════════════════════════ */
+â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
 (function(){
   var el=document.getElementById("hero-tag-el");
   var words=["Web Developer","Discord Bot Dev","Student Freelancer","Lua Scripter","Go Developer","Creative Coder"];
@@ -611,5 +496,6 @@ document.querySelectorAll("[data-target]").forEach(function(el){ co.observe(el);
     }
     setTimeout(tick,del?45:80);
   }
+  /* Start after intro completes (~4.2s total: 8chars*110ms + 500ms + 600ms + 700ms + 250ms + 700ms) */
   setTimeout(tick,4200);
 })();
