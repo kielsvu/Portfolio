@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="robots" content="noindex"/>
+<title>404 — Page Not Found | Kiel Torres</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&family=Cinzel:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%}
+:root{
+  --pp:#c9b8f0;--pp2:#b8a0e8;--pp3:#8b6fd4;--pp4:#6820ae;
+  --bg:#040408;--bg2:#07060f;--bg3:#0c0a1a;
+  --t1:#ffffff;--t2:#c5bedd;--t3:#5a546e;--t4:#3a3450;
+  --b1:rgba(180,150,240,.07);--b2:rgba(180,150,240,.18);--b3:rgba(180,150,240,.36);
+  --g1:0 0 22px 6px rgba(180,150,240,.30);
+  --r1:8px;--r2:14px;--r3:20px;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+body{
+  background:var(--bg);
+  color:var(--t2);
+  font-family:'DM Sans','Segoe UI',system-ui,sans-serif;
+  min-height:100vh;min-height:100svh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+}
+
+/* ── BEAM CANVAS ── */
+#beam-c{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55}
+
+/* ── GRAIN ── */
+#grain{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.028}
+#grain canvas{position:absolute;inset:0;width:100%;height:100%}
+
+/* ── GRID BG ── */
+.bg-grid{
+  position:fixed;inset:0;z-index:1;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(180,150,240,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(180,150,240,.025) 1px,transparent 1px);
+  background-size:52px 52px;
+  mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black 0%,transparent 100%);
+}
+
+/* ── CONTENT ── */
+.wrap{
+  position:relative;z-index:3;
+  display:flex;flex-direction:column;
+  align-items:center;text-align:center;
+  padding:2rem 1.5rem;
+  animation:fadeUp .9s var(--ease) .1s both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+/* ── 404 NUMBER ── */
+.num{
+  font-family:'Cinzel',serif;font-weight:600;
+  font-size:clamp(100px,22vmin,200px);
+  line-height:1;letter-spacing:-.04em;
+  background:linear-gradient(170deg,#e8d8ff 0%,#d0b4ff 18%,#a068e8 52%,#7028c0 80%,#4a10a0 100%);
+  -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+  filter:
+    drop-shadow(0 0 4px rgba(210,170,255,.5))
+    drop-shadow(0 0 20px rgba(155,75,235,.4))
+    drop-shadow(0 0 55px rgba(95,25,185,.25));
+  user-select:none;
+  position:relative;
+  animation:flicker 6s ease-in-out 1.5s infinite;
+}
+@keyframes flicker{
+  0%,94%,96%,98%,100%{filter:drop-shadow(0 0 4px rgba(210,170,255,.5)) drop-shadow(0 0 20px rgba(155,75,235,.4)) drop-shadow(0 0 55px rgba(95,25,185,.25))}
+  95%,97%,99%{filter:drop-shadow(0 0 2px rgba(210,170,255,.2)) drop-shadow(0 0 8px rgba(155,75,235,.15))}
+}
+
+/* ── DIVIDER ── */
+.divider{
+  display:flex;align-items:center;gap:10px;
+  width:100%;max-width:320px;
+  margin:.8rem 0 1.4rem;
+  opacity:0;animation:fadeUp .7s var(--ease) .4s both;
+}
+.dl{flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(170,105,228,.35))}
+.dl.r{background:linear-gradient(270deg,transparent,rgba(170,105,228,.35))}
+.dstar{font-size:.5rem;color:#a855f7;animation:sp 3s ease-in-out infinite}
+@keyframes sp{0%,100%{opacity:.4;text-shadow:0 0 5px #7c2fd4}50%{opacity:1;text-shadow:0 0 12px #7c2fd4,0 0 26px #5010a0}}
+
+/* ── LABEL ── */
+.label{
+  font-size:.65rem;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--pp3);margin-bottom:.7rem;
+  display:flex;align-items:center;gap:.5rem;
+  opacity:0;animation:fadeUp .7s var(--ease) .3s both;
+}
+.label::before,.label::after{content:'';width:14px;height:1px;background:var(--pp3)}
+
+/* ── HEADLINE ── */
+.headline{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(1.3rem,4vw,2rem);
+  color:var(--t1);letter-spacing:-.02em;line-height:1.1;
+  margin-bottom:.75rem;
+  opacity:0;animation:fadeUp .7s var(--ease) .5s both;
+}
+
+/* ── SUB ── */
+.sub{
+  font-size:.85rem;color:var(--t3);
+  max-width:360px;line-height:1.75;
+  margin-bottom:2.2rem;
+  opacity:0;animation:fadeUp .7s var(--ease) .6s both;
+}
+
+/* ── BUTTONS ── */
+.btns{
+  display:flex;gap:.65rem;flex-wrap:wrap;justify-content:center;
+  opacity:0;animation:fadeUp .7s var(--ease) .75s both;
+}
+.btn{
+  position:relative;display:inline-flex;align-items:center;gap:.42rem;
+  padding:.62rem 1.3rem;
+  font-family:'DM Sans',sans-serif;font-size:.70rem;
+  font-weight:500;letter-spacing:.10em;text-transform:uppercase;
+  line-height:1;color:var(--pp);
+  background:transparent;border:1px solid var(--b2);border-radius:var(--r1);
+  text-decoration:none;cursor:pointer;
+  transition:color .26s,border-color .28s,background .28s,box-shadow .28s,transform .12s;
+  overflow:hidden;
+}
+.btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(180,150,240,.12),transparent);opacity:0;transition:opacity .28s}
+@media(hover:hover){
+  .btn:hover{color:#fff;border-color:var(--pp);background:rgba(180,150,240,.07);box-shadow:0 0 22px 7px rgba(180,150,240,.38),0 0 44px 12px rgba(140,100,220,.16)}
+  .btn:hover::before{opacity:1}
+}
+.btn:active{transform:scale(.96)}
+.btn-fill{background:rgba(130,90,210,.08);border-color:var(--b3);box-shadow:0 0 10px 2px rgba(180,150,240,.06)}
+@media(hover:hover){.btn-fill:hover{background:rgba(130,90,210,.20);box-shadow:0 0 26px 8px rgba(180,150,240,.42),0 0 50px 15px rgba(140,100,220,.18)}}
+
+/* ── NAV LOGO ── */
+.nav-logo{
+  position:fixed;top:1.2rem;left:1.5rem;z-index:10;
+  display:flex;align-items:center;gap:.5rem;
+  font-family:'Syne',sans-serif;font-weight:800;font-size:.78rem;
+  letter-spacing:.04em;color:var(--pp);text-decoration:none;
+  opacity:0;animation:fadeUp .6s var(--ease) .2s both;
+  transition:opacity .2s;
+}
+@media(hover:hover){.nav-logo:hover{opacity:.72}}
+
+/* ── FOOTER NOTE ── */
+.foot{
+  position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);
+  font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--t4);white-space:nowrap;z-index:10;
+  opacity:0;animation:fadeUp .6s var(--ease) 1s both;
+}
+</style>
+</head>
+<body>
+
+<canvas id="beam-c"></canvas>
+<div id="grain"><canvas id="grain-c"></canvas></div>
+<div class="bg-grid"></div>
+
+<a href="/" class="nav-logo" aria-label="Back to home">
+  <svg width="20" height="20" viewBox="0 0 26 26" fill="none">
+    <circle cx="13" cy="13" r="2.6" fill="#c9b8f0"/>
+    <circle cx="3.5" cy="6" r="1.6" fill="#8b6fd4" opacity=".85"/>
+    <circle cx="22.5" cy="6" r="1.6" fill="#8b6fd4" opacity=".85"/>
+    <circle cx="3.5" cy="20" r="1.6" fill="#8b6fd4" opacity=".85"/>
+    <circle cx="22.5" cy="20" r="1.6" fill="#8b6fd4" opacity=".85"/>
+    <circle cx="13" cy="2" r="1.3" fill="#b8a0e8" opacity=".6"/>
+    <circle cx="13" cy="24" r="1.3" fill="#b8a0e8" opacity=".6"/>
+    <line x1="13" y1="13" x2="3.5" y2="6" stroke="#b8a0e8" stroke-width=".8" opacity=".38"/>
+    <line x1="13" y1="13" x2="22.5" y2="6" stroke="#b8a0e8" stroke-width=".8" opacity=".38"/>
+    <line x1="13" y1="13" x2="3.5" y2="20" stroke="#b8a0e8" stroke-width=".8" opacity=".38"/>
+    <line x1="13" y1="13" x2="22.5" y2="20" stroke="#b8a0e8" stroke-width=".8" opacity=".38"/>
+  </svg>
+  KIEL.DEV
+</a>
+
+<div class="wrap">
+  <div class="label">Error</div>
+  <div class="num">404</div>
+  <div class="divider">
+    <div class="dl"></div>
+    <span class="dstar">✦</span>
+    <div class="dl r"></div>
+  </div>
+  <div class="headline">This page does not exist</div>
+  <div class="sub">The link might be broken or the page was moved. Head back and you will find what you are looking for.</div>
+  <div class="btns">
+    <a href="/" class="btn btn-fill">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Home
+    </a>
+    <a href="/#contact" class="btn">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Contact
+    </a>
+  </div>
+</div>
+
+<div class="foot">KIEL.DEV &nbsp;·&nbsp; 2025</div>
+
+<script>
+/* ── BEAM ── */
+(function(){
+  var c=document.getElementById('beam-c'),ctx=c.getContext('2d'),W,H;
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight}
+  resize();window.addEventListener('resize',resize,{passive:true});
+  var A=28,DUST=Array.from({length:55},function(){return{t:Math.random(),s:(Math.random()-.5)*2,sz:Math.random()*1.2+.2,sp:.0003+Math.random()*.0005,op:Math.random()*.42+.07,dr:(Math.random()-.5)*.0003};});
+  function clamp(v,a,b){return Math.min(b,Math.max(a,v));}
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    var rad=A*Math.PI/180,dx=Math.sin(rad),dy=Math.cos(rad),bpx=-dy,bpy=dx;
+    var ox=W*.5,oy=0,hw=clamp(W*.10,50,180),OV=Math.sqrt(W*W+H*H);
+    var sx=ox-dx*OV,sy=oy-dy*OV,ex=ox+dx*OV,ey=oy+dy*OV,sp=hw*1.8;
+    var gr=ctx.createLinearGradient(ox+bpx*sp,oy+bpy*sp,ox-bpx*sp,oy-bpy*sp);
+    gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(.15,'rgba(213,197,245,.04)');
+    gr.addColorStop(.38,'rgba(220,208,255,.16)');gr.addColorStop(.5,'rgba(240,234,255,.28)');
+    gr.addColorStop(.62,'rgba(220,208,255,.16)');gr.addColorStop(.85,'rgba(213,197,245,.04)');gr.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.save();ctx.beginPath();ctx.moveTo(sx+bpx*sp,sy+bpy*sp);ctx.lineTo(sx-bpx*sp,sy-bpy*sp);ctx.lineTo(ex-bpx*sp,ey-bpy*sp);ctx.lineTo(ex+bpx*sp,ey+bpy*sp);ctx.closePath();ctx.fillStyle=gr;ctx.fill();ctx.restore();
+    ctx.save();ctx.beginPath();ctx.moveTo(sx,sy);ctx.lineTo(ex,ey);ctx.strokeStyle='rgba(255,248,255,.12)';ctx.lineWidth=1;ctx.shadowColor='rgba(213,197,245,.8)';ctx.shadowBlur=14;ctx.stroke();ctx.restore();
+    var tl=OV*2;
+    DUST.forEach(function(p){
+      p.t=(p.t+p.sp)%1;p.s+=p.dr;if(Math.abs(p.s)>.45)p.dr*=-1;
+      var px=sx+dx*tl*p.t+bpx*hw*p.s,py=sy+dy*tl*p.t+bpy*hw*p.s;
+      ctx.save();ctx.beginPath();ctx.arc(px,py,p.sz,0,6.2832);
+      ctx.fillStyle='rgba(213,197,245,'+p.op+')';ctx.shadowColor='rgba(213,197,245,.6)';ctx.shadowBlur=4;ctx.fill();ctx.restore();
+    });
+    var fg=ctx.createRadialGradient(ox,oy,0,ox,oy,80);
+    fg.addColorStop(0,'rgba(255,248,255,.35)');fg.addColorStop(.25,'rgba(220,205,255,.10)');fg.addColorStop(.7,'rgba(184,158,230,.03)');fg.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.beginPath();ctx.arc(ox,oy,80,0,6.2832);ctx.fillStyle=fg;ctx.fill();
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── GRAIN ── */
+(function(){
+  var c=document.getElementById('grain-c'),ctx=c.getContext('2d'),W,H,frame=0;
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
+  resize();window.addEventListener('resize',resize,{passive:true});
+  function drawGrain(){
+    frame++;
+    if(frame%3!==0){requestAnimationFrame(drawGrain);return;}
+    var img=ctx.createImageData(W,H),d=img.data;
+    for(var i=0;i<d.length;i+=4){var v=Math.random()*255|0;d[i]=v;d[i+1]=v;d[i+2]=v;d[i+3]=Math.random()*26|0;}
+    ctx.putImageData(img,0,0);
+    requestAnimationFrame(drawGrain);
+  }
+  drawGrain();
+})();
+
+/* ── AUTO REDIRECT after 30s ── */
+(function(){
+  var t=30,el=document.querySelector('.foot');
+  var iv=setInterval(function(){
+    t--;
+    if(el)el.textContent='KIEL.DEV \u00b7 Redirecting in '+t+'s';
+    if(t<=0){clearInterval(iv);window.location.href='/';}
+  },1000);
+  /* cancel redirect if user interacts */
+  document.addEventListener('click',function(){clearInterval(iv);if(el)el.textContent='KIEL.DEV \u00b7 2025';},{once:true});
+})();
+</script>
+</body>
+</html>
