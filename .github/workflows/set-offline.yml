@@ -1,0 +1,70 @@
+name: Set Offline
+
+on:
+  schedule:
+    - cron: '0 13 * * *'  #  9:00 PM PHT
+    - cron: '0 16 * * *'  # 12:00 AM PHT (midnight)
+  workflow_dispatch:
+
+jobs:
+  set-offline:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Decide and apply status
+        run: |
+          DATE_PHT=$(TZ='Asia/Manila' date +%Y-%m-%d)
+          HOUR_PHT=$(TZ='Asia/Manila' date +%H)
+
+          PERIOD1_END="2026-06-07"
+          PERIOD2_START="2026-06-08"
+          PERIOD2_END="2027-03-30"
+
+          AVAILABLE="false"
+          LABEL="Unavailable"
+
+          if [[ "$DATE_PHT" <= "$PERIOD1_END" ]]; then
+            if [[ "$HOUR_PHT" -eq 0 || "$HOUR_PHT" -lt 10 ]]; then
+              AVAILABLE="false"
+              LABEL="Unavailable"
+            else
+              # Still within the online window, don't change
+              # Read current status and keep it
+              if [ -f status.json ]; then
+                AVAILABLE=$(python3 -c "import json; d=json.load(open('status.json')); print(str(d.get('available',False)).lower())")
+                LABEL=$(python3 -c "import json; d=json.load(open('status.json')); print(d.get('label','Unavailable'))")
+              fi
+            fi
+
+          elif [[ "$DATE_PHT" >= "$PERIOD2_START" && "$DATE_PHT" <= "$PERIOD2_END" ]]; then
+            if [[ "$HOUR_PHT" -ge 21 || "$HOUR_PHT" -lt 15 ]]; then
+              AVAILABLE="false"
+              LABEL="Unavailable"
+            fi
+
+          else
+            AVAILABLE="false"
+            LABEL="Unavailable"
+          fi
+
+          echo "Date: $DATE_PHT | Hour: $HOUR_PHT | Available: $AVAILABLE"
+
+          cat > status.json << JSON
+          {
+            "available": $AVAILABLE,
+            "label": "$LABEL",
+            "updated": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+          }
+          JSON
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add status.json
+          git diff --staged --quiet || git commit -m "chore: status update (offline check)"
+          git push
+          
