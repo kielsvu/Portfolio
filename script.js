@@ -655,14 +655,3 @@ function spawnStars(){
     })
     .catch(function(){});
 })();
-
-(function(){
-  var btn=document.getElementById('theme-toggle');
-  if(!btn)return;
-  var saved=localStorage.getItem('theme');
-  if(saved==='light')document.body.classList.add('light');
-  btn.addEventListener('click',function(){
-    var isLight=document.body.classList.toggle('light');
-    localStorage.setItem('theme',isLight?'light':'dark');
-  });
-})();
