@@ -2,8 +2,8 @@ name: Set Online
 
 on:
   schedule:
-    - cron: '0 2 * * *'   # 10:00 AM PHT
-    - cron: '0 7 * * *'   #  3:00 PM PHT
+    - cron: '0 2 * * *'
+    - cron: '0 7 * * *'
   workflow_dispatch:
 
 jobs:
@@ -18,46 +18,29 @@ jobs:
         run: |
           DATE_PHT=$(TZ='Asia/Manila' date +%Y-%m-%d)
           HOUR_PHT=$(TZ='Asia/Manila' date +%H)
-
-          PERIOD1_END="2026-06-07"   # last day of 10am-midnight window
+          PERIOD1_END="2026-06-07"
           PERIOD2_START="2026-06-08"
           PERIOD2_END="2027-03-30"
-
           AVAILABLE="false"
           LABEL="Unavailable"
-
           if [[ "$DATE_PHT" <= "$PERIOD1_END" ]]; then
             if [[ "$HOUR_PHT" -ge 10 ]]; then
               AVAILABLE="true"
               LABEL="Available for work"
             fi
-
           elif [[ "$DATE_PHT" >= "$PERIOD2_START" && "$DATE_PHT" <= "$PERIOD2_END" ]]; then
             if [[ "$HOUR_PHT" -ge 15 && "$HOUR_PHT" -lt 21 ]]; then
               AVAILABLE="true"
               LABEL="Available for work"
             fi
-
-          else
-            AVAILABLE="false"
-            LABEL="Unavailable"
           fi
-
-          echo "Date: $DATE_PHT | Hour: $HOUR_PHT | Available: $AVAILABLE"
-
-          cat > status.json << JSON
-          {
-            "available": $AVAILABLE,
-            "label": "$LABEL",
-            "updated": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
-          }
-          JSON
+          printf '{\n  "available": %s,\n  "label": "%s",\n  "updated": "%s"\n}\n' \
+            "$AVAILABLE" "$LABEL" "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" > status.json
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add status.json
-          git diff --staged --quiet || git commit -m "chore: status update (online check)"
+          git diff --staged --quiet || git commit -m "chore: status update"
           git push
-          
