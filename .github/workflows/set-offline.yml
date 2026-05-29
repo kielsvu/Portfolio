@@ -12,30 +12,36 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Decide and apply status
+        shell: bash
         run: |
           DATE_PHT=$(TZ='Asia/Manila' date +%Y-%m-%d)
-          HOUR_PHT=$(TZ='Asia/Manila' date +%H)
+          HOUR_PHT=$(TZ='Asia/Manila' date +%-H)
           PERIOD1_END="2026-06-07"
           PERIOD2_START="2026-06-08"
           PERIOD2_END="2027-03-30"
           AVAILABLE="false"
           LABEL="Unavailable"
-          if [[ "$DATE_PHT" >= "$PERIOD2_START" && "$DATE_PHT" <= "$PERIOD2_END" ]]; then
-            if [[ "$HOUR_PHT" -ge 15 && "$HOUR_PHT" -lt 21 ]]; then
+
+          if [[ "$DATE_PHT" > "$PERIOD2_START" || "$DATE_PHT" == "$PERIOD2_START" ]] && [[ "$DATE_PHT" < "$PERIOD2_END" || "$DATE_PHT" == "$PERIOD2_END" ]]; then
+            if (( HOUR_PHT >= 15 && HOUR_PHT < 21 )); then
               AVAILABLE="true"
               LABEL="Available for work"
             fi
           fi
-          printf '{\n  "available": %s,\n  "label": "%s",\n  "updated": "%s"\n}\n' \
-            "$AVAILABLE" "$LABEL" "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" > status.json
+
+          UPDATED=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          printf '{\n  "available": %s,\n  "label": "%s",\n  "updated": "%s"\n}\n' "$AVAILABLE" "$LABEL" "$UPDATED" > status.json
+          echo "Date: $DATE_PHT | Hour: $HOUR_PHT | Available: $AVAILABLE"
 
       - name: Commit and push
+        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add status.json
           git diff --staged --quiet || git commit -m "chore: status update"
           git push
+          
