@@ -12,41 +12,34 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v4
 
-      - name: Decide and apply status
-        shell: bash
+      - name: Write status
         run: |
           DATE_PHT=$(TZ='Asia/Manila' date +%Y-%m-%d)
-          HOUR_PHT=$(TZ='Asia/Manila' date +%-H)
-          PERIOD1_END="2026-06-07"
-          PERIOD2_START="2026-06-08"
-          PERIOD2_END="2027-03-30"
-          AVAILABLE="false"
+          HOUR_PHT=$(TZ='Asia/Manila' date +%H)
+          UPDATED=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+
+          AVAILABLE=false
           LABEL="Unavailable"
 
-          if [[ "$DATE_PHT" < "$PERIOD1_END" || "$DATE_PHT" == "$PERIOD1_END" ]]; then
-            if (( HOUR_PHT >= 10 )); then
-              AVAILABLE="true"
-              LABEL="Available for work"
-            fi
-          elif [[ "$DATE_PHT" > "$PERIOD2_START" || "$DATE_PHT" == "$PERIOD2_START" ]] && [[ "$DATE_PHT" < "$PERIOD2_END" || "$DATE_PHT" == "$PERIOD2_END" ]]; then
-            if (( HOUR_PHT >= 15 && HOUR_PHT < 21 )); then
-              AVAILABLE="true"
-              LABEL="Available for work"
-            fi
+          if [ "$DATE_PHT" \<= "2026-06-07" ] && [ "$HOUR_PHT" -ge 10 ]; then
+            AVAILABLE=true
+            LABEL="Available for work"
           fi
 
-          UPDATED=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+          if [ "$DATE_PHT" \>= "2026-06-08" ] && [ "$DATE_PHT" \<= "2027-03-30" ] && [ "$HOUR_PHT" -ge 15 ] && [ "$HOUR_PHT" -lt 21 ]; then
+            AVAILABLE=true
+            LABEL="Available for work"
+          fi
+
           printf '{\n  "available": %s,\n  "label": "%s",\n  "updated": "%s"\n}\n' "$AVAILABLE" "$LABEL" "$UPDATED" > status.json
-          echo "Date: $DATE_PHT | Hour: $HOUR_PHT | Available: $AVAILABLE"
+          echo "date=$DATE_PHT hour=$HOUR_PHT available=$AVAILABLE"
 
       - name: Commit and push
-        shell: bash
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add status.json
-          git diff --staged --quiet || git commit -m "chore: status update"
+          git diff --staged --quiet || git commit -m "chore: set status"
           git push
-          
