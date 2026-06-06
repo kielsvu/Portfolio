@@ -43,3 +43,4 @@ jobs:
           git add status.json
           git diff --staged --quiet || git commit -m "chore: set status"
           git push
+          
