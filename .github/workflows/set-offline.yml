@@ -2,9 +2,12 @@ name: Set Offline
 
 on:
   schedule:
-    - cron: '0 13 * * *'
-    - cron: '0 16 * * *'
+    - cron: '0 14 * * *'
   workflow_dispatch:
+
+concurrency:
+  group: status-update
+  cancel-in-progress: false
 
 jobs:
   set-offline:
@@ -14,28 +17,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Write status
+      - name: Write offline status
         run: |
-          DATE_PHT=$(TZ='Asia/Manila' date +%Y-%m-%d)
-          HOUR_PHT=$(TZ='Asia/Manila' date +%H)
-          UPDATED=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
-
-          AVAILABLE=false
-          LABEL="Unavailable"
-
-          if [ "$DATE_PHT" \>= "2026-06-08" ] && [ "$DATE_PHT" \<= "2027-03-30" ] && [ "$HOUR_PHT" -ge 15 ] && [ "$HOUR_PHT" -lt 21 ]; then
-            AVAILABLE=true
-            LABEL="Available for work"
-          fi
-
-          printf '{\n  "available": %s,\n  "label": "%s",\n  "updated": "%s"\n}\n' "$AVAILABLE" "$LABEL" "$UPDATED" > status.json
-          echo "date=$DATE_PHT hour=$HOUR_PHT available=$AVAILABLE"
+          printf '{\n  "available": false,\n  "label": "Unavailable",\n  "updated": "%s"\n}\n' \
+            "$(date -u +"%Y-%m-%dT%H:%M:%SZ")" > status.json
 
       - name: Commit and push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add status.json
-          git diff --staged --quiet || git commit -m "chore: set status"
+          git diff --staged --quiet || git commit -m "chore: set offline"
+          git pull --rebase origin main
           git push
           
