@@ -12,7 +12,6 @@
 
   /* preloader */
   var bar=document.getElementById('pre-bar');
-  var pct=document.getElementById('pre-pct');
   var preEl=document.getElementById('preloader');
   var content=document.getElementById('intro-content');
   var progress=0;
@@ -23,7 +22,6 @@
     var elapsed=Date.now()-startTime;
     progress=Math.min(Math.round((elapsed/duration)*100),100);
     if(bar)bar.style.width=progress+'%';
-    if(pct)pct.textContent=progress+'%';
     if(progress<100){
       requestAnimationFrame(runPreloader);
     } else {
@@ -310,7 +308,7 @@ document.querySelectorAll('[data-target]').forEach(function(el){co.observe(el);}
 
 (function(){
   var c=document.getElementById('grain-c'),ctx=c.getContext('2d'),W,H,frame=0;
-  function resize(){W=Math.ceil(window.innerWidth/2);H=Math.ceil(window.innerHeight/2);c.width=W;c.height=H;c.style.width=window.innerWidth+'px';c.style.height=window.innerHeight+'px';}
+  function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
   resize();
   window.addEventListener('resize',resize,{passive:true});
   function drawGrain(){
