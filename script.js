@@ -1,4 +1,4 @@
-/* BEAM — runs every frame, no skip, no blink */
+/* BEAM  -  runs every frame, no skip, no blink */
 (function(){
   var c=document.getElementById("beam-c"),ctx=c.getContext("2d"),W,H;
   function resize(){W=c.width=window.innerWidth;H=c.height=window.innerHeight;}
@@ -33,9 +33,6 @@
   draw();
 })();
 
-
-
-
 (function(){
   var entered=false;
   function enter(){
@@ -43,7 +40,7 @@
     document.removeEventListener('click',enter);
     document.removeEventListener('touchend',enter);
     document.getElementById('intro').classList.add('exit');
-    setTimeout(function(){document.body.classList.remove('intro-lock');document.body.classList.add('intro-gone');},800);
+    setTimeout(function(){document.body.classList.remove('intro-lock');},800);
   }
   document.body.classList.add('intro-lock');
 
@@ -103,7 +100,7 @@
     var fg=ctx.createRadialGradient(ox,oy,0,ox,oy,90);
     fg.addColorStop(0,'rgba(245,235,255,.38)');fg.addColorStop(.25,'rgba(220,205,255,.12)');fg.addColorStop(.6,'rgba(184,158,230,.03)');fg.addColorStop(1,'rgba(0,0,0,0)');
     ctx.beginPath();ctx.arc(ox,oy,90,0,6.2832);ctx.fillStyle=fg;ctx.fill();
-    if(!document.body.classList.contains('intro-gone'))requestAnimationFrame(dr);
+    requestAnimationFrame(dr);
   }
   dr();
 })();
@@ -546,9 +543,6 @@ function renderReviews(list){
   },{threshold:.2});
   obs.observe(wrap);
 })();
-
-
-
 
 /* ── AVAILABILITY STATUS ── */
 (function(){
