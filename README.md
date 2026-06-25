@@ -1,41 +1,20 @@
-# kielsvu
+<div align="center">
 
-**Hi, I’m kielsvu
-I’m a developer focused on building websites and bots, with additional experience in Roblox scripting.**
+# Hi, I'm kiel
 
-# About Me
+**Web Developer · Discord Bot Developer · Lua Scripter**
 
-**I build clean and functional web projects and automated systems. I mainly focus on website development and bot development, while also working on Roblox scripts.
-I use Firebase for handling premium key storage and authentication systems for scripts such as Quantum Onyx.**
+<br>
 
-# Skills
+<a href="https://kielsvu.is-a.dev"><img src="https://img.shields.io/badge/Portfolio-jhner.is--a.dev-000000?style=for-the-badge&logo=vercel&logoColor=white" /></a>
+<a href="mailto:kieltrres@gmail.com"><img src="https://img.shields.io/badge/Email-jhnergarcia%40gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white" /></a>
 
-**Frontend development (HTML, CSS, JavaScript)**
+<br>
 
-**Backend development (Node.js, APIs, Firebase)**
+</div>
 
-**Bot development (automation, Discord bots, web automation)**
+---
 
-**Roblox scripting (Lua)**
+## License
 
-# Projects
-
-**Some of the systems and tools I have developed:**
-
-**Quantum Onyx dashboard**
-
-**Quantum Key System**
-
-**Quantum Whitelister bot**
-
-**Premium key systems with Firebase integration**
-
-**Web applications and automation tools**
-
-# Goals
-
-**Improve full stack development skills**
-
-**Build more advanced automation systems**
-
-**Create scalable and secure web services**
+This project is licensed under All Rights Reserved — see the [LICENSE](./LICENSE) file for details.
