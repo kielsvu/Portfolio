@@ -293,7 +293,7 @@ document.getElementById('form-send-btn').addEventListener('click',function(e){
   var s=document.getElementById('f-subject').value.trim();
   var m=document.getElementById('f-msg').value.trim();
   if(!n||!em||!m)return;
-  var ml='mailto:kieltrres@gmail.com?subject='+encodeURIComponent(s||'Portfolio Inquiry')+'&body='+encodeURIComponent('Name: '+n+'\nEmail: '+em+'\n\n'+m);
+  var ml='mailto:jhnergarcia@gmail.com?subject='+encodeURIComponent(s||'Portfolio Inquiry')+'&body='+encodeURIComponent('Name: '+n+'\nEmail: '+em+'\n\n'+m);
   window.location.href=ml;
 });
 
@@ -338,15 +338,25 @@ var ro=new IntersectionObserver(function(en){
 },{threshold:.04,rootMargin:'0px 0px -28px 0px'});
 document.querySelectorAll('.r').forEach(function(el){ro.observe(el);});
 
+function animateCounter(el){
+  if(el._counted)return;el._counted=true;
+  var target=+el.dataset.target,t0=Date.now(),dur=1100;
+  (function tick(){var p=Math.min((Date.now()-t0)/dur,1),ease=1-Math.pow(1-p,3);var suf=el.dataset.suffix||'';el.textContent=Math.round(ease*target)+suf;if(p<1)requestAnimationFrame(tick);})();
+}
 var co=new IntersectionObserver(function(en){
   en.forEach(function(e){
     if(!e.isIntersecting)return;
-    var el=e.target,target=+el.dataset.target,t0=Date.now(),dur=1100;
-    (function tick(){var p=Math.min((Date.now()-t0)/dur,1),ease=1-Math.pow(1-p,3);var suf=el.dataset.suffix||'';el.textContent=Math.round(ease*target)+suf;if(p<1)requestAnimationFrame(tick);})();
-    co.unobserve(el);
+    animateCounter(e.target);
+    co.unobserve(e.target);
   });
-},{threshold:.5});
+},{threshold:.15,rootMargin:'0px 0px -20px 0px'});
 document.querySelectorAll('[data-target]').forEach(function(el){co.observe(el);});
+setTimeout(function(){
+  document.querySelectorAll('[data-target]').forEach(function(el){
+    var r=el.getBoundingClientRect();
+    if(r.top<window.innerHeight&&r.bottom>0)animateCounter(el);
+  });
+},2200);
 
 (function(){
   var c=document.getElementById('grain-c'),ctx=c.getContext('2d'),W,H,frame=0;
@@ -571,3 +581,19 @@ function renderReviews(list){
     .then(function(d){applyStatus(d.available,d.label);})
     .catch(function(){applyStatus(true,'Available for work');});
 })();
+
+document.addEventListener('contextmenu', function(e) {
+  e.preventDefault();
+});
+
+document.addEventListener('keydown', function(e) {
+  if (
+    e.key === 'F12' ||
+    (e.ctrlKey && e.shiftKey && e.key === 'I') ||
+    (e.ctrlKey && e.shiftKey && e.key === 'J') ||
+    (e.ctrlKey && e.shiftKey && e.key === 'C') ||
+    (e.ctrlKey && e.key === 'U')
+  ) {
+    e.preventDefault();
+  }
+});
