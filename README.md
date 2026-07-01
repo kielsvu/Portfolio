@@ -17,4 +17,4 @@
 
 ## License
 
-This project is licensed under All Rights Reserved — see the [LICENSE](./LICENSE) file for details.
+This project is licensed under All Rights Reserved — see the [LICENSE](https://github.com/kielsvu/Portfolio/blob/main/LICENSE.md) file for details.
