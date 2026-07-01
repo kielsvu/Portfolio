@@ -288,13 +288,34 @@ document.addEventListener('keydown',function(e){
 
 document.getElementById('form-send-btn').addEventListener('click',function(e){
   e.preventDefault();
+  var btn=this;
   var n=document.getElementById('f-name').value.trim();
   var em=document.getElementById('f-email').value.trim();
   var s=document.getElementById('f-subject').value.trim();
   var m=document.getElementById('f-msg').value.trim();
   if(!n||!em||!m)return;
-  var ml='mailto:jhnergarcia@gmail.com?subject='+encodeURIComponent(s||'Portfolio Inquiry')+'&body='+encodeURIComponent('Name: '+n+'\nEmail: '+em+'\n\n'+m);
-  window.location.href=ml;
+  var originalText=btn.innerHTML;
+  btn.innerHTML='Sending...';
+  fetch('https://formspree.io/f/xnjkgaey',{
+    method:'POST',
+    headers:{'Accept':'application/json','Content-Type':'application/json'},
+    body:JSON.stringify({name:n,email:em,subject:s||'Portfolio Inquiry',message:m})
+  }).then(function(res){
+    if(res.ok){
+      btn.innerHTML='Message Sent!';
+      document.getElementById('f-name').value='';
+      document.getElementById('f-email').value='';
+      document.getElementById('f-subject').value='';
+      document.getElementById('f-msg').value='';
+      setTimeout(function(){btn.innerHTML=originalText;},3000);
+    } else {
+      btn.innerHTML='Something went wrong';
+      setTimeout(function(){btn.innerHTML=originalText;},3000);
+    }
+  }).catch(function(){
+    btn.innerHTML='Something went wrong';
+    setTimeout(function(){btn.innerHTML=originalText;},3000);
+  });
 });
 
 var mnav=document.getElementById('mnav'),mobov=document.getElementById('mobov'),hambtn=document.getElementById('hambtn'),menuOpen=false;
