@@ -597,3 +597,22 @@ document.addEventListener('keydown', function(e) {
     e.preventDefault();
   }
 });
+
+(function() {
+  var user = 'kieltrres';
+  var domain = 'gmail.com';
+  var email = user + '@' + domain;
+  var mailto = 'mailto:' + email;
+
+  var iconLink = document.getElementById('email-link-1');
+  if (iconLink) iconLink.href = mailto;
+
+  var infoLink = document.getElementById('email-link-2');
+  if (infoLink) { infoLink.href = mailto; infoLink.textContent = email; }
+
+  var contactLink = document.getElementById('email-link-3');
+  if (contactLink) { contactLink.href = mailto; contactLink.textContent = email; }
+
+  var btnLink = document.getElementById('email-link-4');
+  if (btnLink) btnLink.href = mailto;
+})();
